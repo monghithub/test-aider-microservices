@@ -27,8 +27,8 @@ public class ClienteResource {
     @Path("/{id}")
     public Response getClienteById(@PathParam("id") Long id) {
         Cliente cliente = clienteService.getClienteById(id);
-        if (cliente != null) {
-            return Response.ok(cliente).build();
+        if (cliente.isPresent()) {
+            return Response.ok(cliente.get()).build();
         }
         return Response.status(Response.Status.NOT_FOUND).build();
     }
@@ -42,9 +42,9 @@ public class ClienteResource {
     @PUT
     @Path("/{id}")
     public Response updateCliente(@PathParam("id") Long id, Cliente cliente) {
-        Cliente updatedCliente = clienteService.updateCliente(id, cliente);
-        if (updatedCliente != null) {
-            return Response.ok(updatedCliente).build();
+        Optional<Cliente> updatedCliente = clienteService.updateCliente(id, cliente);
+        if (updatedCliente.isPresent()) {
+            return Response.ok(updatedCliente.get()).build();
         }
         return Response.status(Response.Status.NOT_FOUND).build();
     }
@@ -52,7 +52,10 @@ public class ClienteResource {
     @DELETE
     @Path("/{id}")
     public Response deleteCliente(@PathParam("id") Long id) {
-        clienteService.deleteCliente(id);
-        return Response.noContent().build();
+        boolean deleted = clienteService.deleteCliente(id);
+        if (deleted) {
+            return Response.noContent().build();
+        }
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 }
