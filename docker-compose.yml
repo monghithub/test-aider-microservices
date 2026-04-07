@@ -8,8 +8,6 @@ services:
       - QUARKUS_DATASOURCE_JDBC_URL=jdbc:h2:mem:test
       - QUARKUS_DATASOURCE_USERNAME=sa
       - QUARKUS_DATASOURCE_PASSWORD=
-    depends_on:
-      - db
   db:
     image: h2database/h2:latest
     ports:
