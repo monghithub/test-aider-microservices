@@ -26,7 +26,7 @@ public class ClienteResource {
     @GET
     @Path("/{id}")
     public Response getClienteById(@PathParam("id") Long id) {
-        Cliente cliente = clienteService.getClienteById(id);
+        Optional<Cliente> cliente = clienteService.getClienteById(id);
         if (cliente.isPresent()) {
             return Response.ok(cliente.get()).build();
         }
