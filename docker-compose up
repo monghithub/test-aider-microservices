@@ -1,0 +1,20 @@
+
+La aplicación estará disponible en http://localhost:8080
+
+## Endpoints Disponibles
+
+- `GET /clientes` - Obtener todos los clientes
+- `GET /clientes/{id}` - Obtener un cliente por ID
+- `POST /clientes` - Crear un nuevo cliente
+- `PUT /clientes/{id}` - Actualizar un cliente existente
+- `DELETE /clientes/{id}` - Eliminar un cliente
+
+## Estructura del Proyecto
+
+- `Cliente.java` - Entidad del cliente
+- `ClienteRepository.java` - Repositorio para acceso a datos
+- `ClienteService.java` - Lógica de negocio
+- `ClienteResource.java` - Controlador REST
+- `application.properties` - Configuración de la aplicación
+- `Dockerfile` - Configuración para Docker
+- `docker-compose.yml` - Configuración para ejecutar con Docker Compose
