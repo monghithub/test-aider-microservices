@@ -1,0 +1,8 @@
+# Construir el proyecto con Maven
+mvn clean package
+
+# Ejecutar con Docker Compose
+docker-compose up
+
+# O ejecutar en modo desarrollo
+mvn quarkus:dev
