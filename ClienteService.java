@@ -5,6 +5,7 @@ import com.example.clientes.repository.ClienteRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @ApplicationScoped
 public class ClienteService {
@@ -19,8 +20,8 @@ public class ClienteService {
         return clienteRepository.listAll();
     }
 
-    public Cliente getClienteById(Long id) {
-        return clienteRepository.findById(id);
+    public Optional<Cliente> getClienteById(Long id) {
+        return Optional.ofNullable(clienteRepository.findById(id));
     }
 
     @Transactional
@@ -30,19 +31,24 @@ public class ClienteService {
     }
 
     @Transactional
-    public Cliente updateCliente(Long id, Cliente clienteDetails) {
+    public Optional<Cliente> updateCliente(Long id, Cliente clienteDetails) {
         Cliente cliente = clienteRepository.findById(id);
         if (cliente != null) {
             cliente.nombre = clienteDetails.nombre;
             cliente.email = clienteDetails.email;
             cliente.telefono = clienteDetails.telefono;
-            return cliente;
+            return Optional.of(cliente);
         }
-        return null;
+        return Optional.empty();
     }
 
     @Transactional
-    public void deleteCliente(Long id) {
-        clienteRepository.deleteById(id);
+    public boolean deleteCliente(Long id) {
+        Cliente cliente = clienteRepository.findById(id);
+        if (cliente != null) {
+            clienteRepository.delete(cliente);
+            return true;
+        }
+        return false;
     }
 }
